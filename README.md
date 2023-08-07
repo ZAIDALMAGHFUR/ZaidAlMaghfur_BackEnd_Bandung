@@ -9,17 +9,15 @@
 
 ## PRESBOOT - Lara
 
-Website SISTEM Informasi  berbasis **LARAVEL 9** sebelumnya saya sudah buat juga yang versi nodejs + react, cuma belum lengkap, silahkan kalian lihat juga jika ingin belajar, fitur sama saja nantinya yang hanya berbeda dalam penggunaan teknologi bahasa yang saya gunakan, yang dibuat sedemikian rupa, untuk saya belajar, dan ini semua open source, bisa kalian kembangkan kembali, fitur sementara yang sudah saya kerjakan, yaitu:
+Website SISTEM Informasi  berbasis **LARAVEL 9** cuma belum lengkap, silahkan kalian lihat juga jika ingin belajar, fitur sama saja nantinya yang hanya berbeda dalam penggunaan teknologi bahasa yang saya gunakan, yang dibuat sedemikian rupa, untuk saya belajar, dan ini semua open source, bisa kalian kembangkan kembali, fitur sementara yang sudah saya kerjakan, yaitu:
 
-- Job Search ( Scraping website Glints ).
-- Zoom Meeting.
 - Authentication ( Register, Login, Verify Email, Forgot Password )
 
-PRESSBOOT masih dalam **tahap pengembangan**, karena ini basicnya untuk saya mempelajari hal baru, update terbaru, baik itu php framework dan js framework.
+ masih dalam **tahap pengembangan**, karena ini basicnya untuk saya mempelajari hal baru, update terbaru, baik itu php framework dan js framework.
 
 ## Instalasi
 
-Untuk dapat kalian gunakan PRESSBOOT  ini silahkan kalian ketikan perintah dibawah ini.
+Untuk dapat kalian gunakan   silahkan kalian ketikan perintah dibawah ini.
 ```sh
 $ composer install
 ```
@@ -45,11 +43,6 @@ MAIL_FROM_ADDRESS="no-reply@youremail.sch.id"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-Kemudian kalian letakkan dan buat env api key untuk zoom, letakkan paling bawah agar tidak bingung
-```env
-ZOOM_CLIENT_KEY="YOUR_API_KEY"
-ZOOM_CLIENT_SECRET="YOUR_SECRET_KEY"
-```
 
 ### Migration
 

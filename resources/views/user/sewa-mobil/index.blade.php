@@ -63,6 +63,7 @@
                     <th>Tanggal Kembali</th>
                     <th>Harga</th>
                     <th>Status Sewa</th>
+                    <th>Lama Sewa</th>
                     <th>Status Pengembalian</th>
                   </tr>
                 </thead>
@@ -85,6 +86,7 @@
                           <span class="badge badge-success">Sudah Bayar</span>
                         @endif
                       </td>
+                      <td>{{ $masa_sewa[$loop->index] }} hari</td>
                       <td>
                         @if ($item->status_pengembalian == 'sudah dikembalikan')
                           <span class="badge badge-success">Sudah Dikembalikan</span>

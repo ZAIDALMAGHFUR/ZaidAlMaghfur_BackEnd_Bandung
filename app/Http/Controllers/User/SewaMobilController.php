@@ -16,7 +16,19 @@ class SewaMobilController extends Controller
         foreach ($sewa_mobil as $sewa) {
             $sewa->total_harga = number_format($sewa->total_harga, 0, ',', '.');
         }
-        return view('user.sewa-mobil.index', compact('sewa_mobil'));
+
+        $tanggal_sewa = Sewa::where('id_users', $auth->id)->pluck('tanggal_sewa');
+        $tanggal_kembali = Sewa::where('id_users', $auth->id)->pluck('tanggal_kembali');
+
+        $masa_sewa = [];
+        foreach ($tanggal_sewa as $key => $value) {
+            $masa_sewa[$key] = (strtotime($tanggal_kembali[$key]) - strtotime($value)) / 86400;
+        }
+
+        // dd($masa_sewa);
+
+
+        return view('user.sewa-mobil.index', compact('sewa_mobil', 'masa_sewa'));
     }
 
     public function create()
@@ -40,8 +52,6 @@ class SewaMobilController extends Controller
 
     public function store(Request $request)
     {
-
-        // dd($request->all());
         $auth = auth()->user()->id;
 
         $request->validate([
@@ -51,16 +61,20 @@ class SewaMobilController extends Controller
         ]);
 
         $mobil = Mobil::find($request->mobil_id);
+
+        if (!$mobil) {
+            return redirect()->back()->with('error', 'Mobil tidak ditemukan');
+        }
+
+        if ($mobil->status_mobil === 'Di Sewa') {
+            return redirect()->back()->with('error', 'Maaf, mobil sedang disewakan');
+        }
+
         $harga = $mobil->harga_sewa;
         $awal = $request->tanggal_sewa;
         $akhir = $request->tanggal_kembali;
         $durasi = (strtotime($akhir) - strtotime($awal)) / 86400;
-        // dd($durasi);
-
         $total_harga = $harga * $durasi;
-
-        // dd($total_harga);
-
 
         Sewa::create([
             'mobil_id' => $request->mobil_id,
@@ -73,6 +87,10 @@ class SewaMobilController extends Controller
             'bukti_pembayaran' => $request->bukti_pembayaran,
         ]);
 
+        // Ubah status mobil menjadi "Di Sewa"
+        $mobil->update(['status_mobil' => 'Di Sewa']);
+
         return redirect()->route('sewa')->with('success', 'Data berhasil ditambahkan');
     }
+
 }
