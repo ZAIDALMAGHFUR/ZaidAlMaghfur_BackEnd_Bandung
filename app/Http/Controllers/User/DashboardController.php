@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Sewa;
 use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
@@ -25,9 +26,9 @@ class DashboardController extends Controller
         return [
 
             [
-                "label" => "Users",
-                "value" => User::count(),
-                'icon' => 'users'
+                "label" => "Jumblah Mobil Di Sewa",
+                "value" => Sewa::where('id_users', auth()->id())->where('status_pengembalian', 'belum dikembalikan')->count(),
+                'icon' => 'clipboard'
             ],
 
         ];
