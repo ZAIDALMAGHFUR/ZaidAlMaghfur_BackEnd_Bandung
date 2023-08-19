@@ -85,7 +85,7 @@
     payButton.addEventListener('click', function(e) {
         e.preventDefault();
 
-        snap.pay('{{ $snapToken }}', {
+        snap.pay('{{ $get }}', {
             // Optional
             onSuccess: function(result) {
                 console.log(result);

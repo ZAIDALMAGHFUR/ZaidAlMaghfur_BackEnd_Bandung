@@ -57,11 +57,12 @@ class UserSewaController extends Controller
         $sewa = Sewa::where('id_users', $auth->id)->first();
         $mobil = Mobil::find($sewa->mobil_id);
 
-        $snapToken = Sewa::where('id_users', $auth->id)->where('id', $id)->pluck('snap_token');
-        // dd($snapToken);
+        $snapToken = Sewa::where('id_users', $auth->id)->where('id', $id)->first();
+        $get = $snapToken->snap_token;
+        // dd($get);
 
 
-        return view('user.sewa-mobil.pay', compact('sewa','mobil', 'auth', 'snapToken'));
+        return view('user.sewa-mobil.pay', compact('sewa','mobil', 'auth', 'get'));
     }
 
     public function create()
