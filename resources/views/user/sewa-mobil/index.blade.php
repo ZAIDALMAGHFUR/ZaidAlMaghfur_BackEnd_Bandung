@@ -100,8 +100,13 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('user/sewa/pay', $item->id) }}"><button type="submit"
-                                                        class="btn btn-primary mt-3" id="pay-button">Bayar</button></a>
+                                                @if ($item->payment_status == 'paid')
+                                                    <span class="text-success">Sudah Bayar</span>
+                                                @else
+                                                    <a href="{{ route('user/sewa/pay', $item->id) }}">
+                                                        <button type="submit" class="btn btn-primary mt-3" id="pay-button">Bayar</button>
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

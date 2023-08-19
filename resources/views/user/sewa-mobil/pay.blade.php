@@ -60,30 +60,6 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $mobil->nama_mobil }}</td>
                                     <td>{{ $mobil->plat_nomor }}</td>
-                                    {{-- <td>{{ $auth->first_name }} {{ $item->user->last_name }}</td> --}}
-                                    {{-- <td>{{ $item->tanggal_sewa }}</td>
-                  <td>{{ $item->tanggal_kembali}}</td>
-                  <td>Rp. {{ $item->total_harga}}</td> --}}
-                                    {{-- <td>
-                    @if ($item->status_sewa == 'failed')
-                      <span class="badge badge-danger">Gagal</span>
-                    @elseif($item->status_sewa == 'pending')
-                      <span class="badge badge-warning">Menunggu Konfirmasi</span>
-                    @elseif($item->status_sewa == 'paid')
-                      <span class="badge badge-success">Sudah Bayar</span>
-                    @endif
-                  </td> --}}
-                                    {{-- <td>{{ $masa_sewa[$loop->index] }} hari</td>
-                  <td>
-                    @if ($item->status_pengembalian == 'sudah dikembalikan')
-                      <span class="badge badge-success">Sudah Dikembalikan</span>
-                    @elseif($item->status_pengembalian == 'belum dikembalikan')
-                      <span class="badge badge-warning">Delum Dikembalikan</span>
-                    @endif
-                  </td>
-                  <td>
-                    <a href="{{ route('user/sewa/pay', $item->id) }}"><button type="submit" class="btn btn-primary mt-3" id="pay-button">Bayar</button></a>
-                  </td> --}}
                                 </tr>
                             @endforeach
                             <button type="submit" class="btn btn-primary mt-3" id="pay-button">Save</button>
@@ -101,34 +77,59 @@
         <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
         <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
         <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-41A5ZoIT0ufyNw1p"></script>
-        <script>
-            const payButton = document.querySelector('#pay-button');
-            payButton.addEventListener('click', function(e) {
-                e.preventDefault();
+<script>
+    const payButton = document.querySelector('#pay-button');
+    payButton.addEventListener('click', function(e) {
+        e.preventDefault();
 
-                snap.pay('{{ $snapToken }}', {
-                    // Optional
-                    onSuccess: function(result) {
-                        /* You may add your own js here, this is just example */
-                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                        console.log(result)
-                    },
-                    // Optional
-                    onPending: function(result) {
-                        /* You may add your own js here, this is just example */
-                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                        console.log(result)
-                    },
-                    // Optional
-                    onError: function(result) {
-                        /* You may add your own js here, this is just example */
-                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                        console.log(result)
-                    }
-                });
-            });
-        </script>
+        snap.pay('da5b4848-2a0f-4f29-8d87-cfce1f740869', {
+            // Optional
+            onSuccess: function(result) {
+                console.log(result);
+
+                if (result.status_code == '200') {
+                    // Update the status of the mobile and sewa
+                    const mobileId = '{{ $mobil->id }}';
+                    const sewaId = '{{ $sewa->id }}';
+                    const url = '/update-status/' + mobileId + '/' + sewaId;
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            status_mobil: 'Di Sewa',
+                            status_sewa: 'paid',
+                            payment_status: 'paid'
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Payment successful!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            },
+            // Optional
+            onPending: function(result) {
+                console.log(result);
+            },
+            // Optional
+            onError: function(result) {
+                console.log(result);
+            }
+        });
+    });
+</script>
     @endPushOnce
 @endsection

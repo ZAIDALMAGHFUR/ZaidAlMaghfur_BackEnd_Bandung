@@ -58,9 +58,8 @@ class UserSewaController extends Controller
         $mobil = Mobil::find($sewa->mobil_id);
 
         $snapToken = Sewa::where('id_users', $auth->id)->pluck('snap_token');
-
-
-        return view('user.sewa-mobil.pay', compact('sewa', 'snapToken', 'mobil', 'auth'));
+        // Pass the token to the view
+        return view('user.sewa-mobil.pay', compact('sewa','mobil', 'auth', 'snapToken'));
     }
 
     public function create()
@@ -129,6 +128,25 @@ class UserSewaController extends Controller
         return redirect()->route('user/sewa')->with('success', 'Data berhasil ditambahkan');
     }
 
+    public function updateStatus($mobileId, $sewaId, Request $request)
+    {
+        $mobile = Mobil::findOrFail($mobileId);
+        $sewa = Sewa::findOrFail($sewaId);
+
+        $mobile->status_mobil = $request->input('status_mobil');
+        $mobile->save();
+
+        $sewa->status_sewa = $request->input('status_sewa');
+        $sewa->payment_status = $request->input('payment_status');
+        $sewa->save();
+
+        return response()->json([
+            'message' => 'Status updated successfully'
+        ]);
+    }
+
+
+
 
     // public function pay(){
     //     $auth = auth()->user()->id;
@@ -165,6 +183,7 @@ class UserSewaController extends Controller
                 if ($fraud == 'challenge') {
                     $sewa->update(['status_sewa' => 'pending']);
                 } else {
+                    $sewa->update(['payment_status' => 'paid']);
                     $sewa->update(['status_sewa' => 'paid']);
                     $mobil->update(['status_mobil' => 'Di Sewa']);
                 }

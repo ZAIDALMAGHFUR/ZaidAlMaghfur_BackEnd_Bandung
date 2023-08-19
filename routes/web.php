@@ -128,10 +128,13 @@ Route::group(['middleware' => ['auth', 'OnlyTes']], function () {
         // Route::get('/get-harga', 'getHarga')->name('sewa.get-harga');
     });
 
+    Route::post('/update-status/{mobileId}/{sewaId}', [UserSewaController::class, 'updateStatus'])->name('update-status');
+
     Route::controller(UserRetruntController::class)->prefix('user/retrunt')->group(function () {
         Route::get('', 'index')->name('user/retrunt');
         Route::post('/retruntCar', 'returnCar')->name('user/retrunt/retruntCar');
     });
+
 
     Route::controller(ReqToAgentController::class)->prefix('user/req')->group(function () {
         Route::get('', 'index')->name('user/req');
