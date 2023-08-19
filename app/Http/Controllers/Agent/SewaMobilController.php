@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Agent;
 
 use App\Models\Sewa;
 use App\Models\Mobil;
@@ -28,14 +28,14 @@ class SewaMobilController extends Controller
         // dd($masa_sewa);
 
 
-        return view('user.sewa-mobil.index', compact('sewa_mobil', 'masa_sewa'));
+        return view('agent.sewa-mobil.index', compact('sewa_mobil', 'masa_sewa'));
     }
 
     public function create()
     {
         $auth = auth()->user()->first_name . ' ' . auth()->user()->last_name;
         $mobil = Mobil::all();
-        return view('user.sewa-mobil.create', compact('mobil', 'auth'));
+        return view('agent.sewa-mobil.create', compact('mobil', 'auth'));
     }
 
     // public function getHarga(Request $request)

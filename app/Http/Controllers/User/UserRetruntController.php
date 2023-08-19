@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sewa;
 
-class RetruntMobilController extends Controller
+class UserRetruntController extends Controller
 {
     public function index()
     {
@@ -15,15 +15,20 @@ class RetruntMobilController extends Controller
     }
 
     public function returnCar(Request $request) {
-        $mobil = Mobil::find($request->plat_nomor);
-        $tgl_sewa = Sewa::where('tanggal_sewa', $request->tanggal_sewa)->first();
-        $cek = Mobil::where('plat_nomor', $request->plat_nomor)->first();
+        $platNomor = $request->plat_nomor;
+        $tanggalSewa = $request->tanggal_sewa;
 
-        if ($cek && $tgl_sewa) {
-            $sewa = Sewa::where('tanggal_sewa', $request->tanggal_sewa)
-                ->first();
-            $mobil = Mobil::where('plat_nomor', $request->plat_nomor)
-                ->first();
+        // Temukan mobil_id berdasarkan plat_nomor
+        $mobil = Mobil::where('plat_nomor', $platNomor)->first();
+
+        if ($mobil) {
+            $mobilId = $mobil->id;
+
+            // Cari data Sewa berdasarkan mobil_id dan tanggal_sewa
+            $sewa = Sewa::where('mobil_id', $mobilId)
+                        ->where('tanggal_sewa', $tanggalSewa)
+                        ->first();
+
             if ($sewa) {
                 $sewa->update([
                     'status_pengembalian' => 'sudah dikembalikan'
@@ -32,13 +37,13 @@ class RetruntMobilController extends Controller
                 $mobil->update([
                     'status_mobil' => 'Tersedia'
                 ]);
+
                 return redirect()->back()->with('success', 'Mobil berhasil dikembalikan');
             } else {
                 return redirect()->back()->with('error', 'Sewa tidak ditemukan');
             }
         } else {
-            return redirect()->back()->with('error', 'Mobil atau tanggal sewa tidak ditemukan');
+            return redirect()->back()->with('error', 'Mobil tidak ditemukan');
         }
     }
-
 }

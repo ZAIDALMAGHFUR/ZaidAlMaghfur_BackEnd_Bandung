@@ -15,6 +15,7 @@
         "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1",
         "macsidigital/laravel-zoom": "^5.0",
+        "midtrans/midtrans-php": "^2.5",
         "phpoffice/phpword": "^1.1",
         "realrashid/sweet-alert": "^6.0",
         "spatie/browsershot": "^3.57",

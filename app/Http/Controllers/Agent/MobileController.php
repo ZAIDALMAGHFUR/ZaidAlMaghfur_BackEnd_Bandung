@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Agent;
 
 use App\Models\Sewa;
 use App\Models\Mobil;
@@ -16,7 +16,7 @@ class MobileController extends Controller
         foreach ($mobiles as $mobile) {
             $mobile->harga_sewa = number_format($mobile->harga_sewa, 0, ',', '.');
         }
-        return view('user.mobile.index', compact('mobiles'));
+        return view('agent.mobile.index', compact('mobiles'));
     }
 
     // public function show($id)     optional
@@ -28,7 +28,7 @@ class MobileController extends Controller
 
     public function create()
     {
-        return view('user.mobile.create');
+        return view('agent.mobile.create');
     }
 
     public function store(Request $request)
@@ -65,7 +65,7 @@ class MobileController extends Controller
     public function edit($id)
     {
         $mobile = Mobil::findOrFail($id);
-        return view('user.mobile.edit', compact('mobile'));
+        return view('agent.mobile.edit', compact('mobile'));
     }
 
 

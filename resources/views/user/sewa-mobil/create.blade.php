@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.tes')
 @section('content')
 
 @pushOnce('css')
@@ -53,7 +53,7 @@
           <div class="table-responsive">
             <div class="col-lg-12">
               <div class="card p-3">
-                <form method="post" class="needs-validation" novalidate="" action="{{ route('sewa.store') }}" enctype="multipart/form-data">
+                <form method="post" class="needs-validation" novalidate="" action="{{ route('user/sewa/store') }}" enctype="multipart/form-data">
                   @csrf
                   @if ($errors->any())
                   <div class="alert alert-danger">
@@ -72,7 +72,7 @@
                                 <select class="js-example-basic-single col-sm-12" name="mobil_id" id="mobil_id">
                                     <option value="">-- Select Mobil --</option>
                                     @foreach ($mobil as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_mobil }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->nama_mobil }} - {{ $item->status_mobil }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -109,7 +109,7 @@
                     </div>
                   </div> --}}
 
-                  <button type="submit" class="btn btn-primary mt-3">Save</button>
+                  <button type="submit" class="btn btn-primary mt-3" id="pay-button">Save</button>
               </form>
               </div>
           </div>
@@ -124,48 +124,34 @@
 <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
 <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
 @endPushOnce
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#mobil_id').change(function() {
-            updateHarga();
-        });
 
-        $('#tanggal_sewa, #tanggal_kembali').change(function() {
-            updateHarga();
-        });
+    {{-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-41A5ZoIT0ufyNw1p"></script>
+        <script>
+            const payButton = document.querySelector('#pay-button');
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
 
-        function updateHarga() {
-            var mobilId = $('#mobil_id').val();
-            console.log(mobilId);
-            var durasi = calculateDuration($('#tanggal_sewa').val(), $('#tanggal_kembali').val());
-
-            console.log(durasi);
-
-            if (mobilId && durasi) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/get-harga',
-                    data: {
-                        mobil_id: mobilId,
-                        durasi: durasi
+                snap.pay('{{ $snapToken }}', {
+                    // Optional
+                    onSuccess: function(result) {
+                        /* You may add your own js here, this is just example */
+                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                        console.log(result)
                     },
-                    success: function(response) {
-                        $('#total_harga').val(response);
+                    // Optional
+                    onPending: function(result) {
+                        /* You may add your own js here, this is just example */
+                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                        console.log(result)
+                    },
+                    // Optional
+                    onError: function(result) {
+                        /* You may add your own js here, this is just example */
+                        // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                        console.log(result)
                     }
                 });
-            }
-        }
-
-        function calculateDuration(start, end) {
-            // Calculate the duration in days
-            var startDate = new Date(start);
-            var endDate = new Date(end);
-            var timeDiff = endDate.getTime() - startDate.getTime();
-            var duration = timeDiff / (1000 * 3600 * 24);
-            return duration;
-        }
-    });
-</script> --}}
+            });
+        </script> --}}
 
 @endsection

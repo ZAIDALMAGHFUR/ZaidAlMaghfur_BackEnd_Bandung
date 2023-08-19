@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.tes')
 @section('content')
   @pushOnce('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
@@ -47,7 +47,7 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <a href="{{ route('sewa.create') }}" class="btn btn-primary">Add Sewa</a>
+            <a href="{{ route('user/sewa/create') }}" class="btn btn-primary">Add Sewa</a>
           </div>
 
           <div class="card-body">
@@ -65,6 +65,7 @@
                     <th>Status Sewa</th>
                     <th>Lama Sewa</th>
                     <th>Status Pengembalian</th>
+                    <th>Bayar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -94,6 +95,9 @@
                           <span class="badge badge-warning">Delum Dikembalikan</span>
                         @endif
                       </td>
+                      <td>
+                        <a href="{{ route('user/sewa/pay', $item->id) }}"><button type="submit" class="btn btn-primary mt-3" id="pay-button">Bayar</button></a>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -112,58 +116,33 @@
     <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
     <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
-    <script type="text/javascript">
-      $('.show_confirm').click(function(e) {
-        var form = $(this).closest("form");
-        e.preventDefault();
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-                // timer: 3000
-              });
-              form.submit();
-            } else {
-              swal("Your imaginary file is safe!", {
-                icon: "info"
-              });
-            }
-          })
-      });
-    </script>
+{{-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-41A5ZoIT0ufyNw1p"></script>
     <script>
-      @if (session()->has('success'))
-        toastr.success(
-          '{{ session('success') }}',
-          'Wohoooo!', {
-            showDuration: 300,
-            hideDuration: 900,
-            timeOut: 900,
-            closeButton: true,
-            newestOnTop: true,
-            progressBar: true,
-          }
-        );
-      @elseif (session()->has('error'))
-        toastr.error(
-          '{{ session('error') }}',
-          'Whoops!', {
-            showDuration: 300,
-            hideDuration: 900,
-            timeOut: 900,
-            closeButton: true,
-            newestOnTop: true,
-            progressBar: true,
-          }
-        );
-      @endif
-    </script>
+        const payButton = document.querySelector('#pay-button');
+        payButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            snap.pay('{{ $snapToken }}', {
+                // Optional
+                onSuccess: function(result) {
+                    /* You may add your own js here, this is just example */
+                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    console.log(result)
+                },
+                // Optional
+                onPending: function(result) {
+                    /* You may add your own js here, this is just example */
+                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    console.log(result)
+                },
+                // Optional
+                onError: function(result) {
+                    /* You may add your own js here, this is just example */
+                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    console.log(result)
+                }
+            });
+        });
+    </script> --}}
   @endPushOnce
 @endsection

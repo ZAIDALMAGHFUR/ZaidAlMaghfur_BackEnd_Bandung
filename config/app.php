@@ -30,6 +30,12 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+        'serverKey' => env('MIDTRANS_SERVERKEY'),
+        'clientKey' => env('MIDTRANS_CLIENTKEY'),
+        'isProduction' => env('MIDTRANS_ISPRODUCTION'),
+        'isSanitized' => env('MIDTRANS_ISSANITIZED'),
+        'is3ds' => env('MIDTRANS_IS3DS'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

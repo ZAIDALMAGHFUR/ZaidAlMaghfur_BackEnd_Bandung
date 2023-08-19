@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.tes')
 @section('content')
   @pushOnce('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
@@ -52,7 +52,7 @@
               </div>
               <div class="card-body">
 
-                <form method="post" class="needs-validation" novalidate="" action="{{ route('profile.update', [$user]) }}" enctype="multipart/form-data">
+                <form method="post" class="needs-validation" novalidate="" action="{{ route('user/profile/update', [$user]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

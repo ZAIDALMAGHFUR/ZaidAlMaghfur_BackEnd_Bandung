@@ -247,7 +247,7 @@
                       data-feather="book"></i><span>Data Sewa </span></a>
                   <ul class="nav-submenu menu-content">
                     <li><a href="{{ route('sewa') }}">Sewa Mobil</a></li>
-                    <li><a href="{{ route('retrunt') }}">Pengemmbalian Mobil</a></li>
+                    <li><a href="{{ route('retrunt') }}">Pengembalian Mobil</a></li>
                   </ul>
                 <li class="dropdown"><a class="nav-link menu" href="{{ route('profile') }}"><i
                     data-feather="edit"></i><span>Profile</span></a>

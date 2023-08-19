@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ReqToAgent;
 use App\Models\Sewa;
 use Illuminate\Support\Facades\Cache;
 
-class DashboardController extends Controller
+class UserDashboardController extends Controller
 {
 
     public function __construct()
@@ -23,14 +23,33 @@ class DashboardController extends Controller
     }
 
     private  function _getStats(){
-        return [
 
+        $cek = $this->_getStatus();
+        return [
             [
                 "label" => "Jumblah Mobil Di Sewa",
                 "value" => Sewa::where('id_users', auth()->id())->where('status_pengembalian', 'belum dikembalikan')->count(),
                 'icon' => 'clipboard'
             ],
-
+            [
+                "label" => "Status Pengajuan Agent",
+                "value" => $cek,
+                'icon' => 'clipboard'
+            ],
         ];
     }
+
+    private function _getStatus(){
+        $auth = auth()->id();
+        $status = ReqToAgent::where('users_id', $auth)->first();
+
+        if ($status) {
+            $cek = $status->status_berkas;
+        } else {
+            $cek = "Belum request";
+        }
+
+        return $cek;
+    }
+
 }

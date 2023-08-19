@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('total_harga')->nullable();
             $table->enum('status_sewa', ['paid', 'failed', 'pending'])->nullable();
             $table->enum('status_pengembalian', ['belum dikembalikan', 'sudah dikembalikan'])->nullable();
+            $table->string('payment_status', 10)->default('pending');
+            $table->string('snap_token')->nullable();
             $table->timestamps();
         });
     }

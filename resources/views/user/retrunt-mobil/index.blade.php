@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.tes')
 @section('content')
   @pushOnce('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
@@ -51,7 +51,7 @@
                 <h5 class="text-white">Kembalikan Mobil</h5>
               </div>
               <div class="card-body">
-                <form method="post" action="{{ route('retrunt.retruntCar') }}">
+                <form method="post" action="{{ route('user/retrunt/retruntCar') }}">
                   @csrf
                   @method('POST')
                   <div class="col-md-12">

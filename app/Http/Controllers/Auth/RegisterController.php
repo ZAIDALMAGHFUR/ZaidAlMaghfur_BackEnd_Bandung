@@ -35,6 +35,8 @@ class RegisterController extends Controller
             return RouteServiceProvider::HOME;
         }elseif(auth()->user()->roles_id == 2){
             return RouteServiceProvider::DASHBOARD;
+        } elseif(auth()->user()->roles_id == 3){
+            return RouteServiceProvider::USER;
         }
     }
 
@@ -79,7 +81,7 @@ class RegisterController extends Controller
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'roles_id' => 2,
+            'roles_id' => '3',
             'phone_number'=>$data['phone_number'],
             'address'=>$data['address'],
             'no_sim'=>$data['no_sim'],

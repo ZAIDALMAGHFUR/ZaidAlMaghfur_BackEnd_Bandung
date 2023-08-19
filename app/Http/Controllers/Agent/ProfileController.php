@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Agent;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        return view('user.profile.index', compact('user'));
+        return view('agent.profile.index', compact('user'));
     }
 
     public function updatePassword(Request $request){

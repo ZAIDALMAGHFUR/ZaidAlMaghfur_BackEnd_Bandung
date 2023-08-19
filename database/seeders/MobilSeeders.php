@@ -18,7 +18,7 @@ class MobilSeeders extends Seeder
         Mobil::create([
             'nama_mobil' => 'Avanza',
             'merk_mobil' => 'Toyota',
-            'plat_nomor' => 'B 1234 ABC',
+            'plat_nomor' => 'B 12345 ABC',
             'warna_mobil' => 'Hitam',
             'tahun_keluaran' => '2019',
             'harga_sewa' => '200000',
@@ -29,7 +29,7 @@ class MobilSeeders extends Seeder
         Mobil::create([
             'nama_mobil' => 'Xenia',
             'merk_mobil' => 'Daihatsu',
-            'plat_nomor' => 'B 1234 ABC',
+            'plat_nomor' => 'B 123456 ABC',
             'warna_mobil' => 'Hitam',
             'tahun_keluaran' => '2019',
             'harga_sewa' => '200000',
@@ -40,7 +40,7 @@ class MobilSeeders extends Seeder
         Mobil::create([
             'nama_mobil' => 'Ertiga',
             'merk_mobil' => 'Suzuki',
-            'plat_nomor' => 'B 1234 ABC',
+            'plat_nomor' => 'B 1234567 ABC',
             'warna_mobil' => 'Hitam',
             'tahun_keluaran' => '2019',
             'harga_sewa' => '200000',
@@ -51,7 +51,7 @@ class MobilSeeders extends Seeder
         Mobil::create([
             'nama_mobil' => 'Innova',
             'merk_mobil' => 'Toyota',
-            'plat_nomor' => 'B 1234 ABC',
+            'plat_nomor' => 'B 12345678 ABC',
             'warna_mobil' => 'Hitam',
             'tahun_keluaran' => '2019',
             'harga_sewa' => '200000',
@@ -62,7 +62,7 @@ class MobilSeeders extends Seeder
         Mobil::create([
             'nama_mobil' => 'Alphard',
             'merk_mobil' => 'Toyota',
-            'plat_nomor' => 'B 1234 ABC',
+            'plat_nomor' => 'B 123456789 ABC',
             'warna_mobil' => 'Hitam',
             'tahun_keluaran' => '2019',
             'harga_sewa' => '200000',

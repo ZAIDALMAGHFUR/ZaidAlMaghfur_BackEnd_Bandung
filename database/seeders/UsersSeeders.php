@@ -28,13 +28,25 @@ class UsersSeeders extends Seeder
         ]);
 
         User::create([
-            'first_name' => 'user',
+            'first_name' => 'agent',
+            'last_name' => 'zaid',
+            'email' => 'agent@gmail.com',
+            'phone_number' => '081234567890',
+            'address' => 'Jl. Raya Cikarang',
+            'no_sim' => '1234567890',
+            'roles_id' => 2,
+            'email_verified_at' => now(), // this is for email verification
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'first_name' => 'customer',
             'last_name' => 'zaid',
             'email' => 'user@gmail.com',
             'phone_number' => '081234567890',
             'address' => 'Jl. Raya Cikarang',
             'no_sim' => '1234567890',
-            'roles_id' => 2,
+            'roles_id' => 3,
             'email_verified_at' => now(), // this is for email verification
             'password' => bcrypt('password'),
         ]);

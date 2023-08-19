@@ -31,6 +31,8 @@ class ConfirmPasswordController extends Controller
             return RouteServiceProvider::HOME;
         }elseif(auth()->user()->roles_id == 2){
             return RouteServiceProvider::DASHBOARD;
+        } elseif(auth()->user()->roles_id == 3){
+            return RouteServiceProvider::USER;
         }
     }
 

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeders::class,
             UsersSeeders::class,
             MobilSeeders::class,
-            SewaSeeders::class,
+            // SewaSeeders::class,
         ]);
     }
 }

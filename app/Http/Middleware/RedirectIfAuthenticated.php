@@ -32,6 +32,8 @@ class RedirectIfAuthenticated
                 return redirect(RouteServiceProvider::HOME);
             }elseif(Auth::user()->roles_id == 2){
                 return redirect(RouteServiceProvider::DASHBOARD);
+            } elseif(Auth::user()->roles_id == 3){
+                return redirect(RouteServiceProvider::USER);
             }
         }
 

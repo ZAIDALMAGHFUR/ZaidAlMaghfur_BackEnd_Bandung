@@ -35,7 +35,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
   <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css') }}" media="screen">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">`
   @stack('css')
 </head>
 
@@ -240,73 +240,23 @@
                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
                       data-feather="grid"></i><span>Data Master</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="">Kurikulum</a></li>
-                    <li><a href="">Tahun Akademik</a></li>
-                    <li><a href="">Gedung</a></li>
-                    <li><a href="">Ruangan</a></li>
-                    <li><a href="">Golongan</a></li>
-                    <li><a href="">Jenis PTK</a></li>
-                    <li><a href="">Jurusan</a></li>
-                    <li><a href="">Kelas</a></li>
-                    <li><a href="">Kepegawaian</a></li>
+                    <li><a href="{{ route('admin/mobile') }}">Data Mobil</a></li>
+                    <li><a href="{{ route('admin/user/acc') }}">Acc User To Agent</a></li>
                   </ul>
                 </li>
                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
                       data-feather="users"></i><span>Data Pengguna</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="">Siswa</a></li>
-                    <li><a href="">Guru</a></li>
-                    <li><a href="http://">Kepala
-                        Sekolah</a></li>
-                    <li><a href="http://">Admin</a></li>
+                    <li><a href="{{ route('admin/user') }}">User</a></li>
+                    <li><a href="{{ route('admin/agent') }}">Agent</a></li>
                   </ul>
                 </li>
                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-                      data-feather="book"></i><span>Data Akademik</span></a>
+                      data-feather="book"></i><span>Data Sewa Mobil</span></a>
                   <ul class="nav-submenu menu-content">
-                    <li><a href="http://">Kelompok Mapel</a></li>
-                    <li><a href="http://">Mata Pelajaran</a></li>
-                    <li><a href="http://">Jadwal Pelajaran</a></li>
-                    <li><a href="http://">Bahan & Tugas</a></li>
-                    <li><a href="http://">Kompetensi Dasar</a></li>
-                    <li><a href="http://">Penilaian Diri</a></li>
-                    <li><a href="http://">Rentang Nilai</a></li>
+                    <li><a href="{{ route('admin/user/sewa') }}">User Sewa Mobil</a></li>
+                    <li><a href="{{ route('admin/user/retrunt') }}">User Retrunt Mobil</a></li>
                   </ul>
-                </li>
-                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-                      data-feather="calendar"></i><span>Data Absensi</span></a>
-                  <ul class="nav-submenu menu-content">
-                    <li><a href="http://">Absensi Guru</a></li>
-                    <li><a href="http://">Absensi Siswa</a></li>
-                    <li><a href="http://">Rekap Absensi</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
-                      data-feather="file-text"></i><span>Laporan Nilai Siswa</span></a>
-                  <ul class="nav-submenu menu-content">
-                    <li><a href="http://">Nilai UTS</a></li>
-                    <li><a href="http://">Nilai Raport</a></li>
-                    <li><a href="http://">Capaian Belajar</a></li>
-                    <li><a href="http://">Extrakulikuler</a></li>
-                    <li><a href="http://">Presentasi</a></li>
-                    <li><a href="http://">Raport UTS</a></li>
-                    <li><a href="http://">Cetak Raport</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a class="nav-link menu" href="javascript:void(0)"><i
-                      data-feather="book-open"></i><span>Jurnal KBM</span></a>
-                </li>
-                <li class="sidebar-main-title">
-                  <div>
-                    <h6>Miscellaneous </h6>
-                  </div>
-                </li>
-                <li class="dropdown"><a class="nav-link menu" href=""><i
-                      data-feather="video"></i><span>Zoom
-                      Meeting</span></a>
-                </li>
-                <li class="dropdown"><a class="nav-link menu" href=""><i
-                      data-feather="pocket"></i><span>Job Search</span></a>
                 </li>
               </ul>
             </div>

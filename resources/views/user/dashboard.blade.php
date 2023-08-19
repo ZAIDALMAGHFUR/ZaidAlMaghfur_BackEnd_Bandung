@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.tes')
 
 @section('content')
 <div class="page-body">
