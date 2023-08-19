@@ -62,7 +62,7 @@
                                     <td>{{ $mobil->plat_nomor }}</td>
                                 </tr>
                             @endforeach
-                            <button type="submit" class="btn btn-primary mt-3" id="pay-button">Save</button>
+                            <button type="submit" class="btn btn-primary mt-3" id="pay-button">Pay</button>
                         </div>
                     </div>
                 </div>
