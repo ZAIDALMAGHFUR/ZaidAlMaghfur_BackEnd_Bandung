@@ -92,5 +92,4 @@ class SewaMobilController extends Controller
 
         return redirect()->route('sewa')->with('success', 'Data berhasil ditambahkan');
     }
-
 }

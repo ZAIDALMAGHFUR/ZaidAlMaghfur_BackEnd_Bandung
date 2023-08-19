@@ -51,7 +51,8 @@ class UserSewaController extends Controller
         return view('user.sewa-mobil.index', compact('sewa_mobil', 'masa_sewa', 'snapToken'));
     }
 
-    public function pay(){
+    public function pay()
+    {
         $auth = auth()->user();
         $sewa = Sewa::where('id_users', $auth->id)->first();
         $mobil = Mobil::find($sewa->mobil_id);
@@ -116,7 +117,7 @@ class UserSewaController extends Controller
 
         $params = [
             'transaction_details' => [
-                'order_id' => $mobil->id.'-'.Str::random(5),
+                'order_id' => $mobil->id . '-' . Str::random(5),
                 'gross_amount' => $total_harga,
             ],
         ];
@@ -149,7 +150,8 @@ class UserSewaController extends Controller
     // }
 
 
-    public function midtransCallback(Request $request){
+    public function midtransCallback(Request $request)
+    {
         $transaction = $request->transaction_status;
         $type = $request->payment_type;
         $order_id = $request->order_id;
@@ -158,32 +160,31 @@ class UserSewaController extends Controller
         $sewa = Sewa::where('snap_token', $order_id)->first();
         $mobil = Mobil::find($sewa->mobil_id);
 
-        if($transaction == 'capture'){
-            if($type == 'credit_card'){
-                if($fraud == 'challenge'){
+        if ($transaction == 'capture') {
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
                     $sewa->update(['status_sewa' => 'pending']);
-                }else{
+                } else {
                     $sewa->update(['status_sewa' => 'paid']);
                     $mobil->update(['status_mobil' => 'Di Sewa']);
                 }
             }
-        }elseif($transaction == 'settlement'){
+        } elseif ($transaction == 'settlement') {
             $sewa->update(['status_sewa' => 'paid']);
             $mobil->update(['status_mobil' => 'Di Sewa']);
-        }elseif($transaction == 'pending'){
+        } elseif ($transaction == 'pending') {
             $sewa->update(['status_sewa' => 'pending']);
-        }elseif($transaction == 'deny'){
+        } elseif ($transaction == 'deny') {
             $sewa->update(['status_sewa' => 'failed']);
             $mobil->update(['status_mobil' => 'Tersedia']);
-        }elseif($transaction == 'expire'){
+        } elseif ($transaction == 'expire') {
             $sewa->update(['status_sewa' => 'failed']);
             $mobil->update(['status_mobil' => 'Tersedia']);
-        }elseif($transaction == 'cancel'){
+        } elseif ($transaction == 'cancel') {
             $sewa->update(['status_sewa' => 'failed']);
             $mobil->update(['status_mobil' => 'Tersedia']);
         }
 
         return response()->json('Ok');
     }
-
 }

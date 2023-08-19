@@ -18,7 +18,8 @@ class UserProfileController extends Controller
         return view('user.profile.index', compact('user'));
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request)
+    {
         $validator = Validator::make($request->all(), [ // VALIDASI DATA
             'oldpass' => [
                 'required', 'string', 'min:7', 'max:16',
@@ -56,7 +57,6 @@ class UserProfileController extends Controller
                 'danger' => $error,
                 'alert-type' => 'danger',
             ]);
-
         } else {
             DB::beginTransaction();
             try {
@@ -66,7 +66,8 @@ class UserProfileController extends Controller
                     $user->password = Hash::make($request->newpass); // HASH PASSWORD BARU
                     // $user->foto = $request->foto;
                     $foto = $request->file('foto')->store(
-                        'foto-user', 'public'
+                        'foto-user',
+                        'public'
                     );
 
                     $user->foto = $foto;
@@ -97,6 +98,5 @@ class UserProfileController extends Controller
                 DB::commit();
             }
         }
-
     }
 }

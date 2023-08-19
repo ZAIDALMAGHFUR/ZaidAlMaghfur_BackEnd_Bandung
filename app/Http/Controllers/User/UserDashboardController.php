@@ -17,12 +17,14 @@ class UserDashboardController extends Controller
     }
 
 
-    public function index(){
+    public function index()
+    {
         $stats = Cache::remember('card-stats-' . auth()->id(), 60 * 1, fn () => $this->_getStats());
         return view('user.dashboard', compact('stats'));
     }
 
-    private  function _getStats(){
+    private  function _getStats()
+    {
 
         $cek = $this->_getStatus();
         return [
@@ -39,7 +41,8 @@ class UserDashboardController extends Controller
         ];
     }
 
-    private function _getStatus(){
+    private function _getStatus()
+    {
         $auth = auth()->id();
         $status = ReqToAgent::where('users_id', $auth)->first();
 
@@ -51,5 +54,4 @@ class UserDashboardController extends Controller
 
         return $cek;
     }
-
 }

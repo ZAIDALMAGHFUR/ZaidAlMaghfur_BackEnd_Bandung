@@ -14,7 +14,8 @@ class RetruntMobilController extends Controller
         return view('agent.retrunt-mobil.index');
     }
 
-    public function returnCar(Request $request) {
+    public function returnCar(Request $request)
+    {
         $platNomor = $request->plat_nomor;
         $tanggalSewa = $request->tanggal_sewa;
 
@@ -26,8 +27,8 @@ class RetruntMobilController extends Controller
 
             // Cari data Sewa berdasarkan mobil_id dan tanggal_sewa
             $sewa = Sewa::where('mobil_id', $mobilId)
-                        ->where('tanggal_sewa', $tanggalSewa)
-                        ->first();
+                ->where('tanggal_sewa', $tanggalSewa)
+                ->first();
 
             if ($sewa) {
                 $sewa->update([
@@ -46,7 +47,4 @@ class RetruntMobilController extends Controller
             return redirect()->back()->with('error', 'Mobil tidak ditemukan');
         }
     }
-
-
-
 }

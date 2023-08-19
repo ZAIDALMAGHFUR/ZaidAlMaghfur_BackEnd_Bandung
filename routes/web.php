@@ -107,7 +107,6 @@ Route::group(['middleware' => ['auth', 'OnlyUsers']], function () {
         Route::get('', 'index')->name('retrunt');
         Route::post('/retruntCar', 'returnCar')->name('retrunt.retruntCar');
     });
-
 });
 
 
@@ -141,7 +140,4 @@ Route::group(['middleware' => ['auth', 'OnlyTes']], function () {
 
 
     Route::get('/cek', [cekUserAgentController::class, 'index'])->name('cek');
-
 });
-
-

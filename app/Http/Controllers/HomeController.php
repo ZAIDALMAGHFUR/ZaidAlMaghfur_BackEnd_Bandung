@@ -30,7 +30,8 @@ class HomeController extends Controller
         return view('dashboard.home', compact('stats'));
     }
 
-    private  function _getStats(){
+    private  function _getStats()
+    {
         return [
 
             [
