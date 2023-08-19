@@ -51,14 +51,16 @@ class UserSewaController extends Controller
         return view('user.sewa-mobil.index', compact('sewa_mobil', 'masa_sewa', 'snapToken'));
     }
 
-    public function pay()
+    public function pay(Request $request, $id)
     {
         $auth = auth()->user();
         $sewa = Sewa::where('id_users', $auth->id)->first();
         $mobil = Mobil::find($sewa->mobil_id);
 
-        $snapToken = Sewa::where('id_users', $auth->id)->pluck('snap_token');
-        // Pass the token to the view
+        $snapToken = Sewa::where('id_users', $auth->id)->where('id', $id)->pluck('snap_token');
+        // dd($snapToken);
+
+
         return view('user.sewa-mobil.pay', compact('sewa','mobil', 'auth', 'snapToken'));
     }
 
@@ -100,7 +102,7 @@ class UserSewaController extends Controller
         $durasi = (strtotime($akhir) - strtotime($awal)) / 86400;
         $total_harga = $harga * $durasi;
 
-        Sewa::create([
+        $sewa = Sewa::create([
             'mobil_id' => $request->mobil_id,
             'id_users' => $auth,
             'tanggal_sewa' => $request->tanggal_sewa,
@@ -112,21 +114,22 @@ class UserSewaController extends Controller
         ]);
 
         // Ubah status mobil menjadi "Di Sewa"
-        // $mobil->update(['status_mobil' => 'Di Sewa']);
+        $mobil->update(['status_mobil' => 'Di Sewa']);
 
         $params = [
             'transaction_details' => [
-                'order_id' => $mobil->id . '-' . Str::random(5),
+                'order_id' => $sewa->id . '-' . Str::random(5),
                 'gross_amount' => $total_harga,
             ],
         ];
 
         $snapToken = Snap::getSnapToken($params);
 
-        Sewa::where('id_users', $auth)->update(['snap_token' => $snapToken]);
+        $sewa->update(['snap_token' => $snapToken]);
 
         return redirect()->route('user/sewa')->with('success', 'Data berhasil ditambahkan');
     }
+
 
     public function updateStatus($mobileId, $sewaId, Request $request)
     {
@@ -144,29 +147,6 @@ class UserSewaController extends Controller
             'message' => 'Status updated successfully'
         ]);
     }
-
-
-
-
-    // public function pay(){
-    //     $auth = auth()->user()->id;
-    //     $sewa = Sewa::where('id_users', $auth)->first();
-    //     $mobil = Mobil::find($sewa->mobil_id);
-
-    //     $params = [
-    //         'transaction_details' => [
-    //             'order_id' => $mobil->id.'-'.Str::random(5),
-    //             'gross_amount' => $sewa->total_harga,
-    //         ],
-    //     ];
-
-    //     $snapToken = Snap::getSnapToken($params);
-
-    //     Sewa::where('id_users', $auth)->update(['snap_token' => $snapToken]);
-
-    //     return redirect()->route('user/sewa')->with('success', 'Data berhasil ditambahkan');
-    // }
-
 
     public function midtransCallback(Request $request)
     {
